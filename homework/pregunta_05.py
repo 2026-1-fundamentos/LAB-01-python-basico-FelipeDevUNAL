@@ -13,5 +13,31 @@ def pregunta_05():
 
     Rta/
     [('A', 9, 2), ('B', 9, 1), ('C', 9, 0), ('D', 8, 3), ('E', 9, 1)]
-
     """
+
+    datos = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+
+            letra = columnas[0]
+            numero = int(columnas[1])
+
+            if letra not in datos:
+                datos[letra] = [numero, numero]  # [max, min]
+            else:
+                if numero > datos[letra][0]:
+                    datos[letra][0] = numero
+
+                if numero < datos[letra][1]:
+                    datos[letra][1] = numero
+
+    resultado = []
+
+    for letra in sorted(datos):
+        resultado.append(
+            (letra, datos[letra][0], datos[letra][1])
+        )
+
+    return resultado

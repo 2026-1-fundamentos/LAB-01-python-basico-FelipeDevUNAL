@@ -13,6 +13,21 @@ def pregunta_11():
 
     Rta/
     {'a': 122, 'b': 49, 'c': 91, 'd': 73, 'e': 86, 'f': 134, 'g': 35}
-
-
     """
+
+    resultado = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+
+            numero = int(columnas[1])
+            letras = columnas[3].split(",")
+
+            for letra in letras:
+                if letra in resultado:
+                    resultado[letra] += numero
+                else:
+                    resultado[letra] = numero
+
+    return dict(sorted(resultado.items()))

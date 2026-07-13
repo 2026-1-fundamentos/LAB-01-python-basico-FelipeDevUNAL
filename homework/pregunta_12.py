@@ -13,5 +13,26 @@ def pregunta_12():
 
     Rta/
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
-
     """
+
+    resultado = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+
+            letra = columnas[0]
+
+            suma_fila = 0
+            pares = columnas[4].split(",")
+
+            for par in pares:
+                valor = int(par.split(":")[1])
+                suma_fila += valor
+
+            if letra in resultado:
+                resultado[letra] += suma_fila
+            else:
+                resultado[letra] = suma_fila
+
+    return dict(sorted(resultado.items()))

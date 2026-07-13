@@ -9,9 +9,9 @@ utilizar pandas, numpy o scipy.
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
-    contiene  el valor de la segunda columna; la segunda parte de la tupla
+    contiene el valor de la segunda columna; la segunda parte de la tupla
     es una lista con las letras (ordenadas y sin repetir letra) de la
-    primera  columna que aparecen asociadas a dicho valor de la segunda
+    primera columna que aparecen asociadas a dicho valor de la segunda
     columna.
 
     Rta/
@@ -25,5 +25,25 @@ def pregunta_08():
      (7, ['A', 'C', 'D', 'E']),
      (8, ['A', 'B', 'D', 'E']),
      (9, ['A', 'B', 'C', 'E'])]
-
     """
+
+    datos = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split("\t")
+
+            letra = columnas[0]
+            numero = int(columnas[1])
+
+            if numero not in datos:
+                datos[numero] = set()
+
+            datos[numero].add(letra)
+
+    resultado = []
+
+    for numero in sorted(datos):
+        resultado.append((numero, sorted(datos[numero])))
+
+    return resultado
